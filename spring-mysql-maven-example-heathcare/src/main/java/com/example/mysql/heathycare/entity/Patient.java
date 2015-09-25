@@ -45,7 +45,7 @@ public class Patient {
 	@Column(name="age")
 	private Integer age;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="patient", cascade= CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="patient", cascade= CascadeType.ALL)
 	private List<Answer>answer;
 	
 	public Long getId() {

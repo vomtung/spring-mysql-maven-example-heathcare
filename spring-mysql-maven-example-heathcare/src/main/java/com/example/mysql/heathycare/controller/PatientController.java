@@ -1,7 +1,7 @@
 package com.example.mysql.heathycare.controller;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +44,14 @@ public class PatientController {
 	@ResponseBody
 	public String listJSON(){
 		List<Patient>patients = patientService.findAll();
+		for (Iterator iterator = patients.iterator(); iterator.hasNext();) {
+			Patient patient = (Patient) iterator.next();
+			List<Answer>answers = answerService.findByPatientId(patient.getId());
+			patient.setAnswer(answers);
+		}
 		JSONSerializer serializer = new JSONSerializer();
 		serializer.exclude("*.class");
+		serializer.include("answer");
 		return serializer.serialize(patients);
 	}
 	
@@ -66,7 +72,7 @@ public class PatientController {
 	@RequestMapping(value ="/add", method = RequestMethod.POST)
 	public String add(@ModelAttribute(value = "patient")Patient patient){
 		List<Question>questions = questionService.findAll();
-		List<Answer>answers = new ArrayList<Answer>();
+		List<Answer>answers = new LinkedList<Answer>();
 		for (Iterator iterator = questions.iterator(); iterator.hasNext();) {
 			Question question = (Question) iterator.next();
 			Answer answer = new Answer();
