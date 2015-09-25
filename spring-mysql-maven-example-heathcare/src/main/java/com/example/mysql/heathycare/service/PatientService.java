@@ -1,13 +1,14 @@
-package com.example.msql.heathycare.service;
+package com.example.mysql.heathycare.service;
 
 import java.util.List;
 
-import com.example.msql.heathycare.entity.Patient;
+import com.example.mysql.heathycare.entity.Patient;
+
 
 public interface PatientService {
 	
 	public List<Patient> findAll();
 	
-	public void create(Patient patient);
+	public void persist(Patient patient);
 
 }

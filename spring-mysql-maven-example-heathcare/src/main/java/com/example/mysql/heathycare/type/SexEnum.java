@@ -1,4 +1,4 @@
-package com.example.msql.heathycare.type;
+package com.example.mysql.heathycare.type;
 
 public enum SexEnum {
 

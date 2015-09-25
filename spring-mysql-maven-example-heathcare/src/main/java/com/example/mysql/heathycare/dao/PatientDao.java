@@ -1,18 +1,16 @@
-package com.example.msql.heathycare.dao;
+package com.example.mysql.heathycare.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.msql.heathycare.entity.Patient;
+import com.example.mysql.heathycare.entity.Patient;
 
 /**
  * 
@@ -27,11 +25,14 @@ public class PatientDao {
 	private SessionFactory sessionFactory;
 
 	public List<Patient> findAll() {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Patient.class);
-		return (List<Patient>) criteria.list();
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM Patient e";
+		Query query = session.createQuery(hql);
+		List results = (List<Patient>)query.list();
+		return results;
 	}
 
-	public void create(Patient patient) {
+	public void persist(Patient patient) {
 		sessionFactory.getCurrentSession().persist(patient);
 	}
 }

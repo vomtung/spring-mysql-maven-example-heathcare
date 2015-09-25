@@ -4,6 +4,9 @@
 	<head>
 	<p>Index page</p>
 	<p><a href="${pageContext.servletContext.contextPath}/patient">patient</a></p>
+	<p><a href="${pageContext.servletContext.contextPath}/patient/add">add patient</a></p>
+	<p><a href="${pageContext.servletContext.contextPath}/patient/list_json">json</a></p>
+	<p><a href="${pageContext.servletContext.contextPath}/question">Question</a></p>
 	</head>
 	<body>
 	</body>

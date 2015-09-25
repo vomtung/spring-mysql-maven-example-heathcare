@@ -1,15 +1,22 @@
-package com.example.msql.heathycare.entity;
+package com.example.mysql.heathycare.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.example.msql.heathycare.type.SexEnum;
+import com.example.mysql.heathycare.type.SexEnum;
+
 
 /**
  * 
@@ -38,6 +45,9 @@ public class Patient {
 	@Column(name="age")
 	private Integer age;
 
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="patient", cascade= CascadeType.ALL)
+	private List<Answer>answer;
+	
 	public Long getId() {
 		return id;
 	}
@@ -76,6 +86,14 @@ public class Patient {
 
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+
+	public List<Answer> getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(List<Answer> answer) {
+		this.answer = answer;
 	}
 	
 }

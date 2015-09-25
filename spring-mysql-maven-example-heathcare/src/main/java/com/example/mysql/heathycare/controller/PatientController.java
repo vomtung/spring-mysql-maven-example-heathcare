@@ -1,17 +1,24 @@
-package com.example.msql.heathycare.controller;
+package com.example.mysql.heathycare.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.msql.heathycare.entity.Patient;
-import com.example.msql.heathycare.service.PatientService;
+import com.example.mysql.heathycare.entity.Answer;
+import com.example.mysql.heathycare.entity.Patient;
+import com.example.mysql.heathycare.entity.Question;
+import com.example.mysql.heathycare.service.AnswerService;
+import com.example.mysql.heathycare.service.PatientService;
+import com.example.mysql.heathycare.service.QuestionService;
 
 import flexjson.JSONSerializer;
 
@@ -26,6 +33,12 @@ public class PatientController {
 	
 	@Autowired
 	private PatientService patientService;
+	
+	@Autowired
+	private QuestionService questionService;
+	
+	@Autowired
+	private AnswerService answerService;
 
 	@RequestMapping(value ="/list_json" ,method = RequestMethod.GET)
 	@ResponseBody
@@ -52,7 +65,24 @@ public class PatientController {
 	
 	@RequestMapping(value ="/add", method = RequestMethod.POST)
 	public String add(@ModelAttribute(value = "patient")Patient patient){
-		patientService.create(patient);
+		List<Question>questions = questionService.findAll();
+		List<Answer>answers = new ArrayList<Answer>();
+		for (Iterator iterator = questions.iterator(); iterator.hasNext();) {
+			Question question = (Question) iterator.next();
+			Answer answer = new Answer();
+			answer.setQuestion(question);
+			answer.setPatient(patient);
+			answers.add(answer);
+		}
+		patient.setAnswer(answers);
+		patientService.persist(patient);
 		return "redirect:/patient";
+	}
+	
+	@RequestMapping(value ="/answer/{patientId}" ,method = RequestMethod.GET)
+	public String listAnswer(@PathVariable(value="patientId")Long patientId, ModelMap mm){
+		List<Answer>answers = answerService.findByPatientId(patientId);
+		mm.put("answers", answers);
+		return "patient/answer_list";
 	}
 }
