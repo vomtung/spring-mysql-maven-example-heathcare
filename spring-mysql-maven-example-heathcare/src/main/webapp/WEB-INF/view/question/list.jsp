@@ -3,6 +3,7 @@
 <%@ page isELIgnored="false" %>
 <html>
 	<head>
+	<a href="${pageContext.servletContext.contextPath}">Index</a>
 	</head>
 	<body>
 	<p><a href="${pageContext.servletContext.contextPath}/patient">Patient</a></p>

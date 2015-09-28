@@ -4,6 +4,7 @@
     
 <html>
 	<head>
+	<a href="${pageContext.servletContext.contextPath}">Index</a>
 	<a href="${pageContext.servletContext.contextPath}">Patient</a>
 	</head> 
 	<body>

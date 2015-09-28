@@ -6,21 +6,16 @@
 	<a href="${pageContext.servletContext.contextPath}">Index</a>
 	</head>
 	<body>
-	<p><a href="${pageContext.servletContext.contextPath}/patient/add">add patient</a></p>
-	<p><a href="${pageContext.servletContext.contextPath}/patient/list_json">json</a></p>
-	<p><a href="${pageContext.servletContext.contextPath}/question">Question</a></p>
+	<p><a href="${pageContext.servletContext.contextPath}/prescription/add">add patient</a></p>
 	<table style="width:100%" border="1">
             <tr>
-                <td>Patient Id</td>
-                <td>Patient Name</td>
-                <td>Age</td>
-                <td>Configuration</td>
+                <td>Prescription Id</td>
+                <td>Prescription Id</td>
             </tr>
-        <c:forEach items="${patients}" var="patient">
+        <c:forEach items="${prescriptions}" var="prescription">
             <tr>
-                <td>${patient.patientId}</td>
-                <td>${patient.patientName}</td>
-                <td>${patient.age}</td>
+                <td>${prescription.id}</td>
+                <td>${prescription.patient.patientId}</td>
                 <td>
                     <a href="#">Edit</a>
                     <a href="${pageContext.servletContext.contextPath}/patient/answer/${patient.id}">Answer</a>

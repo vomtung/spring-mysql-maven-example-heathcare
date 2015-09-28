@@ -2,36 +2,34 @@ package com.example.mysql.heathycare.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 /**
  * 
  * @author vominhtung
  *
  */
 @Entity
-@Table(name="answer")
-public class Answer {
-
+@Table(name="prescription")
+public class Prescription {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Patient patient;
+	@ManyToOne
+	private Doctor doctor;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Question question;
+	@ManyToOne
+	private Patient patient; 
 	
-	@Column(name="answer")
-	private String answer;
-
+	private String description; 
+	
 	public Long getId() {
 		return id;
 	}
@@ -40,20 +38,12 @@ public class Answer {
 		this.id = id;
 	}
 
-	public Question getQuestion() {
-		return question;
+	public Doctor getDoctor() {
+		return doctor;
 	}
 
-	public void setQuestion(Question question) {
-		this.question = question;
-	}
-
-	public String getAnswer() {
-		return answer;
-	}
-
-	public void setAnswer(String answer) {
-		this.answer = answer;
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
 	}
 
 	public Patient getPatient() {
@@ -64,4 +54,12 @@ public class Answer {
 		this.patient = patient;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 }

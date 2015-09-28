@@ -5,21 +5,22 @@
 <html>
 	<head>
 	<a href="${pageContext.servletContext.contextPath}">Index</a>
+	<p>add doctor</p>
 	</head> 
 	<body>
 	<table>
-	<form:form method="post" commandName="patient" action="${pageContext.servletContext.contextPath}/patient/add">
+	<form:form method="post" commandName="doctor" action="${pageContext.servletContext.contextPath}/doctor/add">
 		<tr>
-			<td>Patient Name</td>
-			<td><form:input path="patientName"/></td>
+			<td>First Name</td>
+			<td><form:input path="firstName"/></td>
 		</tr>
 		<tr>
-			<td>Patient Id</td>
-			<td><form:input path="patientId"/></td>
+			<td>Last Name</td>
+			<td><form:input path="lastName"/></td>
 		</tr>
 		<tr>
-			<td>Age</td>
-			<td> <form:input path="age"/></td>
+			<td>Emplyee Id</td>
+			<td><form:input path="employeeId"/></td>
 		</tr>
 		<tr>
 			<td><input type="submit" value="Save"></td>
