@@ -1,6 +1,6 @@
 package com.example.mysql.heathycare.controller;
 
-import java.util.List;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.mysql.heathycare.entity.Answer;
 import com.example.mysql.heathycare.entity.Doctor;
 import com.example.mysql.heathycare.entity.Patient;
 import com.example.mysql.heathycare.entity.Prescription;
+import com.example.mysql.heathycare.service.AnswerService;
 import com.example.mysql.heathycare.service.DoctorService;
 import com.example.mysql.heathycare.service.PatientService;
 import com.example.mysql.heathycare.service.PrescriptionService;
@@ -39,6 +41,9 @@ public class PrescriptionController {
 	
 	@Autowired
 	private DoctorService doctorService;
+	
+	@Autowired
+	private AnswerService answerService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(ModelMap mm){
@@ -69,6 +74,12 @@ public class PrescriptionController {
 	public String listJSON(){
 		Set<Prescription>prescriptions = prescriptionService.findAll();
 		JSONSerializer serializer = new JSONSerializer();
+		for (Iterator iterator = prescriptions.iterator(); iterator.hasNext();) {
+			Prescription prescription = (Prescription) iterator.next();
+			Patient patient = prescription.getPatient();
+			Set<Answer>answers = answerService.findByPatientId(patient.getId());
+			patient.setAnswer(answers);
+		}
 		serializer.exclude("*.class");
 		serializer.include("patient");
 		return serializer.serialize(prescriptions);
