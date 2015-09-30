@@ -1,6 +1,6 @@
 package com.example.mysql.heathycare.service.impl;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +20,13 @@ public class PrescriptionServiceImpl implements PrescriptionService{
 	private PrescriptionDao prescriptionDao;
 	
 	@Override
-	public List<Prescription> findALL() {
+	public Set<Prescription> findAll() {
 		return prescriptionDao.findAll();
+	}
+
+	@Override
+	public void persist(Prescription prescription) {
+		prescriptionDao.persist(prescription);
 	}
 
 }

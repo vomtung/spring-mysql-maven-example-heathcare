@@ -1,14 +1,22 @@
 package com.example.mysql.heathycare.service;
 
-import java.util.List;
+import java.util.Set;
 
 import com.example.mysql.heathycare.entity.Patient;
 
-
+/**
+ * 
+ * @author vominhtung
+ *
+ */
 public interface PatientService {
 	
-	public List<Patient> findAll();
+	Patient findById(Long id);
 	
-	public void persist(Patient patient);
-
+	Set<Patient> findAll();
+	
+	void persist(Patient patient);
+	
+	void delete(Patient patient);
+	
 }

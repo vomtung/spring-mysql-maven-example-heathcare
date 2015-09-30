@@ -1,6 +1,7 @@
 package com.example.mysql.heathycare.service.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +21,12 @@ public class AnswerServiceImpl implements AnswerService{
 	private AnswerDao answerDao;
 	
 	@Override
-	public List<Answer> findByPatientId(Long patientId) {
+	public Set<Answer> findByPatientId(Long patientId) {
 		return answerDao.findByPatientId(patientId);
 	}
 
 	@Override
-	public List<Answer> findAll() {
+	public Set<Answer> findAll() {
 		return answerDao.findAll();
 	}
 

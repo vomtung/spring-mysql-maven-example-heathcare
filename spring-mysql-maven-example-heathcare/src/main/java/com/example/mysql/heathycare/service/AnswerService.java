@@ -1,6 +1,6 @@
 package com.example.mysql.heathycare.service;
 
-import java.util.List;
+import java.util.Set;
 
 import com.example.mysql.heathycare.entity.Answer;
 /**
@@ -12,9 +12,9 @@ public interface AnswerService {
 	
 	Answer findById(Long id);
 	
-	List<Answer> findAll();
+	Set<Answer> findAll();
 
-	List<Answer> findByPatientId(Long patientId);
+	Set<Answer> findByPatientId(Long patientId);
 	
 	void update(Answer answer);
 }

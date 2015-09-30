@@ -1,8 +1,10 @@
 package com.example.mysql.heathycare.dao;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,10 +24,16 @@ public class PrescriptionDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public List<Prescription> findAll() {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Prescription.class);
-		return (List<Prescription>) criteria.list();
+	public Set<Prescription> findAll() {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM Prescription p";
+		Query query = session.createQuery(hql);
+		Set results = new HashSet<Prescription>(query.list());
+		return results;
 	}
 
+	public void persist(Prescription prescription){
+		sessionFactory.getCurrentSession().persist(prescription);
+	}
 	
 }

@@ -1,12 +1,17 @@
 package com.example.mysql.heathycare.controller;
 
 import java.util.List;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.mysql.heathycare.entity.Doctor;
 import com.example.mysql.heathycare.entity.Patient;
@@ -14,6 +19,8 @@ import com.example.mysql.heathycare.entity.Prescription;
 import com.example.mysql.heathycare.service.DoctorService;
 import com.example.mysql.heathycare.service.PatientService;
 import com.example.mysql.heathycare.service.PrescriptionService;
+
+import flexjson.JSONSerializer;
 
 /**
  * 
@@ -35,15 +42,15 @@ public class PrescriptionController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(ModelMap mm){
-		List<Prescription>prescriptions = prescriptionService.findALL();
+		Set<Prescription>prescriptions = prescriptionService.findAll();
 		mm.addAttribute("prescriptions", prescriptions);
 		return "prescription/list";
 	}
 	
 	@RequestMapping(value ="/add", method = RequestMethod.GET)
 	public String addPrescriptionForm(ModelMap mm){
-		List<Patient>patients = patientService.findAll();
-		List<Doctor>doctors = doctorService.findAll();
+		Set<Patient>patients = patientService.findAll();
+		Set<Doctor>doctors = doctorService.findAll();
 		Prescription prescription = new Prescription();
 		mm.addAttribute("prescription", prescription);
 		mm.addAttribute("patientList", patients);
@@ -52,14 +59,19 @@ public class PrescriptionController {
 	}
 	
 	@RequestMapping(value ="/add", method = RequestMethod.POST)
-	public String addPrescription(ModelMap mm){
-		List<Patient>patients = patientService.findAll();
-		List<Doctor>doctors = doctorService.findAll();
-		Prescription prescription = new Prescription();
-		mm.addAttribute("prescription", prescription);
-		mm.addAttribute("patientList", patients);
-		mm.addAttribute("doctorList", doctors);
-		return "prescription/add";
+	public String addPrescription(@ModelAttribute(value="prescription")Prescription prescription, ModelMap mm, HttpServletRequest request){
+		prescriptionService.persist(prescription);
+		return "redirect:/prescription";
+	}
+	
+	@RequestMapping(value ="/list_json" ,method = RequestMethod.GET)
+	@ResponseBody
+	public String listJSON(){
+		Set<Prescription>prescriptions = prescriptionService.findAll();
+		JSONSerializer serializer = new JSONSerializer();
+		serializer.exclude("*.class");
+		serializer.include("patient");
+		return serializer.serialize(prescriptions);
 	}
 	
 }

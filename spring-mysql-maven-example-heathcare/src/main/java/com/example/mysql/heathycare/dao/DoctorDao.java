@@ -1,6 +1,7 @@
 package com.example.mysql.heathycare.dao;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.mysql.heathycare.entity.Doctor;
-import com.example.mysql.heathycare.entity.Patient;
 
 /**
  * 
@@ -24,11 +24,11 @@ public class DoctorDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	public List<Doctor>findAll(){
+	public Set<Doctor>findAll(){
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "FROM Doctor d";
 		Query query = session.createQuery(hql);
-		List results = (List<Doctor>)query.list();
+		Set results = new HashSet<Doctor>(query.list());
 		return results;
 	}
 	

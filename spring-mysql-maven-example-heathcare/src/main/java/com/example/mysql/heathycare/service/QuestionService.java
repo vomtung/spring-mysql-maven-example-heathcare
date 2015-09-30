@@ -1,6 +1,6 @@
 package com.example.mysql.heathycare.service;
 
-import java.util.List;
+import java.util.Set;
 
 import com.example.mysql.heathycare.entity.Question;
 
@@ -11,7 +11,7 @@ import com.example.mysql.heathycare.entity.Question;
  */
 public interface QuestionService {
 
-	List<Question>findAll();
+	Set<Question>findAll();
 	
 	void persist(Question question);
 	

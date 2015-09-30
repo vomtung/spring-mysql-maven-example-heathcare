@@ -2,6 +2,7 @@ package com.example.mysql.heathycare.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,12 +23,13 @@ public class Prescription {
 	@Column(name="id")
 	private Long id;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Doctor doctor;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Patient patient; 
 	
+	@Column(name="description")
 	private String description; 
 	
 	public Long getId() {

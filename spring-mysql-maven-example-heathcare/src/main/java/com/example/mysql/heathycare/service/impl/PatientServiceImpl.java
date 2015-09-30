@@ -1,6 +1,6 @@
 package com.example.mysql.heathycare.service.impl;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class PatientServiceImpl implements PatientService{
 	
 	@Override
 	@Transactional
-	public List<Patient> findAll() {
+	public Set<Patient> findAll() {
 		return patientDao.findAll();
 	}
 
@@ -29,4 +29,17 @@ public class PatientServiceImpl implements PatientService{
 	public void persist(Patient patient) {
 		patientDao.persist(patient);;
 	}
+
+	@Override
+	@Transactional
+	public void delete(Patient patient) {
+		patientDao.delete(patient);
+	}
+
+	@Override
+	@Transactional
+	public Patient findById(Long id) {
+		return patientDao.findById(id);
+	}
+
 }

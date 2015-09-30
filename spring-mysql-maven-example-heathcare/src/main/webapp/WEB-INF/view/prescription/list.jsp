@@ -6,7 +6,7 @@
 	<a href="${pageContext.servletContext.contextPath}">Index</a>
 	</head>
 	<body>
-	<p><a href="${pageContext.servletContext.contextPath}/prescription/add">add patient</a></p>
+	<p><a href="${pageContext.servletContext.contextPath}/prescription/add">add prescription</a></p>
 	<table style="width:100%" border="1">
             <tr>
                 <td>Prescription Id</td>

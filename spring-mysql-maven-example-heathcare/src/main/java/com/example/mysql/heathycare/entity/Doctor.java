@@ -1,6 +1,7 @@
 package com.example.mysql.heathycare.entity;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 /**
  * 
@@ -26,8 +26,8 @@ public class Doctor {
 	@Column(name="id")
 	private Long id;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="doctor", cascade= CascadeType.ALL)
-	private List<Prescription> prescriptions;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="doctor", cascade= CascadeType.ALL)
+	private Set<Prescription> prescriptions = new HashSet<Prescription>();
 	
 	@Column(name="firstName")
 	private String firstName;
@@ -46,11 +46,11 @@ public class Doctor {
 		this.id = id;
 	}
 
-	public List<Prescription> getPrescriptions() {
+	public Set<Prescription> getPrescriptions() {
 		return prescriptions;
 	}
 
-	public void setPrescriptions(List<Prescription> prescriptions) {
+	public void setPrescriptions(Set<Prescription> prescriptions) {
 		this.prescriptions = prescriptions;
 	}
 

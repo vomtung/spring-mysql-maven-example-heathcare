@@ -1,6 +1,6 @@
 package com.example.mysql.heathycare.controller;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class DoctorController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String index(ModelMap mm){
-		List<Doctor>doctors = doctorService.findAll();
+		Set<Doctor>doctors = doctorService.findAll();
 		mm.addAttribute("doctors", doctors);
 		return "doctor/list";
 	}

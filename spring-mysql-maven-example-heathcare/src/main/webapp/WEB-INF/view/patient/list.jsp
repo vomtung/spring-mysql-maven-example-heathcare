@@ -24,6 +24,7 @@
                 <td>
                     <a href="#">Edit</a>
                     <a href="${pageContext.servletContext.contextPath}/patient/answer/${patient.id}">Answer</a>
+                    <a href="${pageContext.servletContext.contextPath}/patient/delete/${patient.id}">Delete</a>
                 </td>
             </tr>
         </c:forEach>

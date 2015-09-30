@@ -1,6 +1,7 @@
 package com.example.mysql.heathycare.dao;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -21,9 +22,9 @@ public class QuestionDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public List<Question> findAll() {
+	public Set<Question> findAll() {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Question.class);
-		return (List<Question>) criteria.list();
+		return new HashSet<Question>(criteria.list());
 	}
 	
 	public void persist(Question question) {
